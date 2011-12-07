@@ -303,6 +303,15 @@
 	}
 }
 
+- (BOOL)wantsScrollEventsForSwipeTrackingOnAxis:(NSEventGestureAxis)axis
+{
+    if (axis == NSEventGestureAxisHorizontal) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 - (void)rotateWithEvent:(NSEvent *)event
 {
 	if(!deliveringEvent) {
@@ -314,6 +323,7 @@
 
 - (void)swipeWithEvent:(NSEvent *)event
 {
+    NSLog(@"Swipe began.");
 	if(!deliveringEvent) {
 		deliveringEvent = YES;
 		[[self viewForEvent:event] swipeWithEvent:event];

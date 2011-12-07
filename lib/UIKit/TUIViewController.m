@@ -119,4 +119,9 @@
 	return v;
 }
 
+- (void)scrollWheel:(NSEvent *)event
+{
+    NSLog(@"Scroll.");
+}
+
 @end

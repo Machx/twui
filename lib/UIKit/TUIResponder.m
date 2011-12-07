@@ -48,4 +48,11 @@
 	return self;
 }
 
+- (void)scrollWheel:(NSEvent *)event
+{
+    if([[self nextResponder] respondsToSelector:@selector(scrollWheel:)]){
+        [[self nextResponder] scrollWheel:event];
+    }
+}
+
 @end

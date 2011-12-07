@@ -990,6 +990,21 @@ static float clampBounce(float x) {
 
 - (void)scrollWheel:(NSEvent *)event
 {
+    if ([event phase] == NSEventPhaseBegan) {
+        _scrollViewFlags.inspectNextScrollDirection = YES;
+    } else if (_scrollViewFlags.inspectNextScrollDirection && [event phase] == NSEventPhaseChanged){
+        _scrollViewFlags.inspectNextScrollDirection = NO;
+        if (fabs([event scrollingDeltaX]) > fabs([event scrollingDeltaY])) {
+            _scrollViewFlags.forwardScrollsForPhase = YES;
+        }
+    } else if ([event phase] == NSEventPhaseEnded){
+        _scrollViewFlags.forwardScrollsForPhase = NO;
+    }
+
+    if (_scrollViewFlags.forwardScrollsForPhase) {
+        [[self superview] scrollWheel:event];
+        return;
+    }
 	if(self.scrollEnabled)
 	{
 		int phase = ScrollPhaseNormal;
